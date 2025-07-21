@@ -13,6 +13,20 @@ func TestGetLibrary(t *testing.T) {
 	} else {
 		t.Logf("Get library test PASSED: %+v", library)
 	}
+
+	// Check if the titles match expected values
+	if library[0].Title != "Warbreaker" || library[1].Title != "Hamlet" {
+		t.Errorf("Expected titles 'Warbreaker' and 'Hamlet', got '%s' and '%s'", library[0].Title, library[1].Title)
+	} else {
+		t.Logf("Get library titles test PASSED: '%s', '%s'", library[0].Title, library[1].Title)
+	}
+	// Check if the authors match expected values
+	if library[0].Author != "Brandon Sanderson" || library[1].Author != "William Shakespeare" {
+		t.Errorf("Expected authors 'Brandon Sanderson' and 'William Shakespeare', got '%s' and '%s'", library[0].Author, library[1].Author)
+	} else {
+		t.Logf("Get library authors test PASSED: '%s', '%s'", library[0].Author, library[1].Author)
+	}
+
 }
 
 // TestAddBook tests the functionality of adding books to the library.
@@ -59,12 +73,12 @@ func TestDeleteBook(t *testing.T) {
         {ID: "2", Title: "Book Two", Author: "Author B"},
     }
 
-    // Test deleting the first book
+    // Test deleting a book
     newLib, ok := deleteBook(library, 0)
     if !ok || len(newLib) != 1 || newLib[0].ID != "2" {
         t.Errorf("Expected to delete book at index 0, got %+v", newLib)
     }else{
-		t.Logf("Delete first book test PASSED: %+v", newLib)
+		t.Logf("Delete valid book test PASSED: %+v", newLib)
 	}
 	
 
