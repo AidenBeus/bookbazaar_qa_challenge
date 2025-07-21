@@ -68,7 +68,7 @@ func main() {
 // Input fields for adding and deleting books and quitting the application.
     bookNameInput := tview.NewInputField().SetLabel("Book Name: ")
     bookAuthorInput := tview.NewInputField().SetLabel("Book Author: ")
-    bookIDInput := tview.NewInputField().SetLabel("Book ID (for delete): ")
+    bookIDInput := tview.NewInputField().SetLabel("Book ID (delete only): ")
 
     form := tview.NewForm().
         AddFormItem(bookNameInput).
@@ -78,13 +78,14 @@ func main() {
             name := bookNameInput.GetText()
             author := bookAuthorInput.GetText()
             id := bookIDInput.GetText()
-            if name == "" || author == "" || id == "" {
-                fmt.Println("Please fill in all fields.")
+			// Check if all fields are filled before adding a new book.
+            if name == "" || author == ""{
+                fmt.Fprintln(libraryList, "Please fill in all fields.")
                 return
             }
             newBook := book{ID: id, Title: name, Author: author}
             library = append(library, newBook)
-            saveLibrary()
+            saveLibrary()		
             refreshList()
             bookNameInput.SetText("")
             bookAuthorInput.SetText("")
@@ -94,14 +95,14 @@ func main() {
             indexStr := bookIDInput.GetText()
             index, err := strconv.Atoi(indexStr)
             if err != nil || index < 1 || index > len(library) {
-                fmt.Println("Invalid book index")
+                fmt.Fprintln(libraryList, "Invalid book index")
                 return
             }
             deleteBook(index - 1)
             refreshList()
             bookIDInput.SetText("")
         }).
-        AddButton("Quit", func() { // This function quits the application.
+        AddButton("Quit", func() { // This function quits the application.	
             app.Stop()
         })
 
