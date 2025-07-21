@@ -57,12 +57,19 @@ func TestAddBook(t *testing.T) {
 }else{
 		t.Logf("Missing title test PASSED: %+v", library[2])
 	}
+	// Try adding a book with missing Author and Title
+	library = append(library, book{ID: "3", Title: "", Author: ""})
+	if len(library) != 4 || library[3].ID != "3" || library[3].Title != "" || library[3].Author != "" {
+		t.Errorf("Expected to not add book with missing author and title, got %+v", library)
+	}else{
+		t.Logf("Missing author and title test PASSED: %+v", library[3])
+	}
 	// Try adding a book with negative ID
 	library = append(library, book{ID: "-1", Title: "Negative ID Book", Author: "Negative Author"})
-	if len(library) != 4 || library[3].ID != "-1" || library[3].Title != "Negative ID Book" || library[3].Author != "Negative Author" {
-		t.Errorf("Expected to not add book with negative ID, got %+v", library)
-}else{
-		t.Logf("Negative ID test PASSED: %+v", library[3])
+	if len(library) != 5 || library[4].ID != "-1" || library[4].Title != "Negative ID Book" || library[4].Author != "Negative Author" {
+		t.Errorf("Expected to add book with negative ID, got %+v", library)
+	}else{
+		t.Logf("Negative ID test PASSED: %+v", library[4])
 	}
 }
 
