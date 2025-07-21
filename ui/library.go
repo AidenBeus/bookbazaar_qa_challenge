@@ -1,15 +1,22 @@
-// This struct holds book information.
+package main
+
+import (
+    "encoding/json"
+    "log"
+    "os"
+)
+
 type book struct {
     ID     string `json:"id"`
     Title  string `json:"title"`
     Author string `json:"author"`
 }
-// These vars hold the library data and the file path.
+
 var (
-    library     = []book{}
     libraryFile = "library.json"
+    library     []book
 )
-// loadLibrary loads the library from the JSON file.
+
 func loadLibrary() {
     _, err := os.Stat(libraryFile)
     if err == nil {
@@ -20,7 +27,7 @@ func loadLibrary() {
         json.Unmarshal(data, &library)
     }
 }
-// saveLibrary saves the library to the JSON file.
+
 func saveLibrary() {
     data, err := json.MarshalIndent(library, "", "  ")
     if err != nil {
@@ -28,12 +35,10 @@ func saveLibrary() {
     }
     os.WriteFile(libraryFile, data, 0644)
 }
-// deleteBook removes a book from the library by index.
-func deleteBook(index int) {
+
+func deleteBook(library []book, index int) ([]book, bool) {
     if index < 0 || index >= len(library) {
-        fmt.Println("Invalid book index")
-        return
+        return library, false
     }
-    library = append(library[:index], library[index+1:]...)
-    saveLibrary()
+    return append(library[:index], library[index+1:]...), true
 }

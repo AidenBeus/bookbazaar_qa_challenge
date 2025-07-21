@@ -1,52 +1,11 @@
 package main
 //used tview to create the UI for managing a book library
+
 import (
     "fmt"
     "github.com/rivo/tview"
-    "encoding/json"
-    "log"
-    "os"
     "strconv"
 )
-// This struct holds book information.
-type book struct {
-    ID     string `json:"id"`
-    Title  string `json:"title"`
-    Author string `json:"author"`
-}
-// These vars hold the library data and the file path.
-var (
-    library     = []book{}
-    libraryFile = "library.json"
-)
-// loadLibrary loads the library from the JSON file.
-func loadLibrary() {
-    _, err := os.Stat(libraryFile)
-    if err == nil {
-        data, err := os.ReadFile(libraryFile)
-        if err != nil {
-            log.Fatalf("Error reading library file! - %v", err)
-        }
-        json.Unmarshal(data, &library)
-    }
-}
-// saveLibrary saves the library to the JSON file.
-func saveLibrary() {
-    data, err := json.MarshalIndent(library, "", "  ")
-    if err != nil {
-        log.Fatalf("Error saving library file! - %v", err)
-    }
-    os.WriteFile(libraryFile, data, 0644)
-}
-// deleteBook removes a book from the library by index.
-func deleteBook(index int) {
-    if index < 0 || index >= len(library) {
-        fmt.Println("Invalid book index")
-        return
-    }
-    library = append(library[:index], library[index+1:]...)
-    saveLibrary()
-}
 // main function initializes the tview application and sets up the UI.
 func main() {
     app := tview.NewApplication()
@@ -98,7 +57,8 @@ func main() {
                 fmt.Fprintln(libraryList, "Invalid book index")
                 return
             }
-            deleteBook(index - 1)
+            library, _ = deleteBook(library, index - 1) // Convert to zero-based index
+            saveLibrary()
             refreshList()
             bookIDInput.SetText("")
         }).
