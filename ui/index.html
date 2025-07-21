@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Bazaar</title>
+</head>
+<body>
+    <h1>Book List</h1>
+    <ul id="book-list"></ul>
+
+    <h2>Add a Book</h2>
+    <form id="add-book-form">
+        <input type="text" id="title" placeholder="Title" required>
+        <input type="text" id="author" placeholder="Author" required>
+        <button type="submit">Add Book</button>
+    </form>
+
+    <script>
+        // Fetch and display books
+        function loadBooks() {
+            fetch('/books')
+                .then(res => res.json())
+                .then(data => {
+                    const list = document.getElementById('book-list');
+                    list.innerHTML = '';
+                    data.forEach(book => {
+                        const li = document.createElement('li');
+                        li.textContent = `${book.title} by ${book.author}`;
+                        list.appendChild(li);
+                    });
+                });
+        }
+
+        // Add book
+        document.getElementById('add-book-form').onsubmit = function(e) {
+            e.preventDefault();
+            fetch('/books', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: Date.now().toString(),
+                    title: document.getElementById('title').value,
+                    author: document.getElementById('author').value
+                })
+            }).then(() => {
+                loadBooks();
+                document.getElementById('title').value = '';
+                document.getElementById('author').value = '';
+            });
+        };
+
+        loadBooks();
+    </script>
+</body>
+</html>

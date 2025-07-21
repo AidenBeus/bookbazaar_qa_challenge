@@ -8,12 +8,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// This struct represents a book in the library system.
+// This struct holds book information.
 type book struct {
 	ID           string  `json:"id"`
 	Title        string  `json:"title"`
 	Author       string  `json:"author"`
 }
+
 
 // This slice holds the list of books in the library.
 var books = []book{
