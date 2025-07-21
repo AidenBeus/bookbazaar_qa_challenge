@@ -25,7 +25,7 @@ func main() {
         }
     }
 // Input fields for adding and deleting books and quitting the application.
-    bookNameInput := tview.NewInputField().SetLabel("Book Name: ")
+    bookNameInput := tview.NewInputField().SetLabel("Book Title: ")
     bookAuthorInput := tview.NewInputField().SetLabel("Book Author: ")
     bookIDInput := tview.NewInputField().SetLabel("Book ID (delete only): ")
 
