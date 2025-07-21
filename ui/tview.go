@@ -74,7 +74,7 @@ func main() {
         AddFormItem(bookNameInput).
         AddFormItem(bookAuthorInput).
         AddFormItem(bookIDInput).
-        AddButton("Add Book", func() {
+        AddButton("Add Book", func() { // This function adds a new book to the library.
             name := bookNameInput.GetText()
             author := bookAuthorInput.GetText()
             id := bookIDInput.GetText()
@@ -90,7 +90,7 @@ func main() {
             bookAuthorInput.SetText("")
             bookIDInput.SetText("")
         }).
-        AddButton("Delete Book", func() {
+        AddButton("Delete Book", func() { // This function deletes a book from the library by its ID.
             indexStr := bookIDInput.GetText()
             index, err := strconv.Atoi(indexStr)
             if err != nil || index < 1 || index > len(library) {
@@ -101,7 +101,7 @@ func main() {
             refreshList()
             bookIDInput.SetText("")
         }).
-        AddButton("Quit", func() {
+        AddButton("Quit", func() { // This function quits the application.
             app.Stop()
         })
 
