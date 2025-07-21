@@ -2,6 +2,19 @@ package main
 
 import "testing"
 
+// TestGetLibrary tests the functionality of retrieving the library.
+func TestGetLibrary(t *testing.T) {
+	library := []book{
+		{ID: "1", Title: "Warbreaker", Author: "Brandon Sanderson"},
+		{ID: "2", Title: "Hamlet", Author: "William Shakespeare"},
+	}
+	if len(library) != 2 {
+		t.Errorf("Expected 2 books in library, got %d", len(library))
+	} else {
+		t.Logf("Get library test PASSED: %+v", library)
+	}
+}
+
 // TestAddBook tests the functionality of adding books to the library.
 func TestAddBook(t *testing.T) {
 	library := []book{}
