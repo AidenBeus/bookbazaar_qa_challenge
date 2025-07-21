@@ -3,7 +3,7 @@
 ## Clone the project
 
 ```
-$git clone https://github.com/AidenBeus/bookbazaar_qa_challenge.git
+$ git clone https://github.com/AidenBeus/bookbazaar_qa_challenge.git
 $ cd bookbazaar_qa_challenge
 ```
 ## Get tview 
@@ -14,7 +14,7 @@ $go mod init
 ``` 
 
 ##Running the project
-To run the application, run main.go and library.go
+To run the application, simple run:
 ```
 $cd ui
 $go run .
