@@ -1,5 +1,5 @@
 package main
-
+//used tview to create the UI for managing a book library
 import (
     "fmt"
     "github.com/rivo/tview"
@@ -8,18 +8,18 @@ import (
     "os"
     "strconv"
 )
-
+// This struct holds book information.
 type book struct {
     ID     string `json:"id"`
     Title  string `json:"title"`
     Author string `json:"author"`
 }
-
+// These vars hold the library data and the file path.
 var (
     library     = []book{}
     libraryFile = "library.json"
 )
-
+// loadLibrary loads the library from the JSON file.
 func loadLibrary() {
     _, err := os.Stat(libraryFile)
     if err == nil {
@@ -30,7 +30,7 @@ func loadLibrary() {
         json.Unmarshal(data, &library)
     }
 }
-
+// saveLibrary saves the library to the JSON file.
 func saveLibrary() {
     data, err := json.MarshalIndent(library, "", "  ")
     if err != nil {
@@ -38,7 +38,7 @@ func saveLibrary() {
     }
     os.WriteFile(libraryFile, data, 0644)
 }
-
+// deleteBook removes a book from the library by index.
 func deleteBook(index int) {
     if index < 0 || index >= len(library) {
         fmt.Println("Invalid book index")
@@ -47,14 +47,14 @@ func deleteBook(index int) {
     library = append(library[:index], library[index+1:]...)
     saveLibrary()
 }
-
+// main function initializes the tview application and sets up the UI.
 func main() {
     app := tview.NewApplication()
     loadLibrary()
     libraryList := tview.NewTextView().
         SetDynamicColors(true).SetWordWrap(true)
     libraryList.SetBorder(true).SetTitle("Library Books")
-
+	// Function to refresh the library list display.
     refreshList := func() {
         libraryList.Clear()
         if len(library) == 0 {
@@ -65,7 +65,7 @@ func main() {
             fmt.Fprintf(libraryList, "[%d] %s by %s\n", i+1, book.Title, book.Author)
         }
     }
-
+// Input fields for adding and deleting books and quitting the application.
     bookNameInput := tview.NewInputField().SetLabel("Book Name: ")
     bookAuthorInput := tview.NewInputField().SetLabel("Book Author: ")
     bookIDInput := tview.NewInputField().SetLabel("Book ID (for delete): ")
