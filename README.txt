@@ -41,11 +41,11 @@ Tests are stored and run from library_test.go
 
 ##Rationale
 I choose to use tview for my application UI because it is a relatively simple UI library. 
-I liked how it looked and there were plenty of guides and demos to help me build this application.
-For testing, I used the basic test library. Since the app is small, using logic statements were enough.
-For GET, I tested if I could retrive the library without changing or modifying it. 
-The ID of a book is based on it's location in the library, so that is tested in POST and DELETE
+I liked how it looked, and there were plenty of guides and demos to help me build this application.
+For testing, I used the basic test library. Since the app is small, using simple logic statements were enough.
+For GET, I tested if I could retrieve the library without changing or modifying the contents of the slice. 
+The ID of a book is based on its location in the library, so that is tested in POST and DELETE.
 For POST (ADD), I tested if I could add a valid book to the library.
-I also tested what would hapen if a book had an invalid author, title, or ID.
+I also tested what would happen if a book had an invalid author, title, or ID.
 For DELETE, I tested if I could delete a book with a valid ID. 
 I also tested to make sure nothing happened to a delete attempt with an invalid or negative ID.
