@@ -7,6 +7,13 @@ $ git clone https://github.com/AidenBeus/bookbazaar_qa_challenge.git
 $ cd bookbazaar_qa_challenge
 ```
 zip: https://github.com/AidenBeus/bookbazaar_qa_challenge/archive/refs/heads/master.zip
+
+##Files
+main.go is where the application is stored and run from.
+library.go contains the logic and allows for testing.
+library_test.go is the test code with the test cases.
+go.sum and go.mod are dependencies.
+
 ##Running the project
 To run the application, simply run:
 ```
@@ -30,6 +37,7 @@ Use the test command to run the test cases.
 $go test -v
 ```
 Each test case should show whether it passed, along with the runtime.
+Tests are stored and run from library_test.go
 
 ##Rationale
 I choose to use tview for my application UI because it is a relatively simple UI library. 
